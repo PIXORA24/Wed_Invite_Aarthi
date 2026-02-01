@@ -56,9 +56,6 @@ html, body {
   font-size: 15px;
   letter-spacing: .6px;
   cursor: pointer;
-  box-shadow:
-    0 10px 30px rgba(212,175,55,.45),
-    inset 0 1px 0 rgba(255,255,255,.4);
 }
 
 .action-bar {
@@ -68,7 +65,7 @@ html, body {
   bottom: 0;
   padding: 16px;
   display: flex;
-  gap: 14px;
+  gap: 12px;
   background: linear-gradient(
     to top,
     rgba(18,7,11,.95),
@@ -77,40 +74,47 @@ html, body {
   );
 }
 
-.action-bar a {
+.action-bar a,
+.action-bar button {
   flex: 1;
   padding: 14px 0;
   border-radius: 999px;
   background: rgba(255,255,255,.12);
   border: 1px solid rgba(255,255,255,.25);
   color: #fff;
-  text-decoration: none;
   font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-/* =========================
-   RIPPLE BASE
-   ========================= */
+.event-grid {
+  max-width: 360px;
+  margin: 32px auto;
+  display: grid;
+  gap: 18px;
+}
 
-.ripple {
-  position: relative;
+.event-card {
+  border-radius: 16px;
   overflow: hidden;
-  -webkit-tap-highlight-color: transparent;
+  position: relative;
 }
 
-.ripple-effect {
+.event-card img {
+  width: 100%;
+  display: block;
+}
+
+.event-label {
   position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  background: rgba(255, 215, 140, 0.35);
-  transform: scale(0);
-  animation: ripple-anim 600ms ease-out;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.75),
+    transparent 60%
+  );
+  font-size: 18px;
 }
-
-@keyframes ripple-anim {
-  to {
-    transform: scale(3);
-    opacity: 0;
-  }
-}
-
