@@ -6,25 +6,68 @@
 <!-- WhatsApp Preview -->
 <meta property="og:title" content="Aarthi & Rohit Wedding Invitation">
 <meta property="og:description" content="Join us in celebrating our wedding ✨">
-<meta property="og:image" content="https://yourdomain.com/assets/preview.jpg">
+<meta property="og:image" content="assets/preview.jpg">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://yourdomain.com/">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Wedding Invitation</title>
+<title>Invitation</title>
 
 <link rel="stylesheet" href="glass.css">
+
+<style>
+.event-grid {
+  max-width: 360px;
+  margin: 32px auto;
+  display: grid;
+  gap: 18px;
+}
+
+.event-card {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.6);
+}
+
+.event-card img {
+  width: 100%;
+  display: block;
+}
+
+.event-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.75),
+    transparent 60%
+  );
+  font-size: 18px;
+  letter-spacing: .6px;
+}
+</style>
 </head>
 
 <body>
 
-<div class="invite-frame">
-  <img src="assets/preview.jpg" alt="Wedding Preview" style="width:100%;display:block;">
-</div>
+<div class="event-grid">
 
-<div class="action-bar">
-  <a href="wedding.html">Open Invitation</a>
+  <!-- Wedding -->
+  <a class="event-card" href="wedding.html">
+    <img src="assets/wedding/thumb.jpg" alt="Wedding">
+    <div class="event-label">Wedding</div>
+  </a>
+
+  <!-- Reception -->
+  <a class="event-card" href="reception.html">
+    <img src="assets/reception/thumb.jpg" alt="Reception">
+    <div class="event-label">Reception</div>
+  </a>
+
 </div>
 
 </body>
