@@ -1,0 +1,89 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(
+    120% 60% at 50% 0%,
+    rgba(120,60,70,.45),
+    #12070b 65%
+  );
+  font-family: "Playfair Display", serif;
+  color: #fff;
+  text-align: center;
+}
+
+.invite-frame {
+  max-width: 360px;
+  margin: 32px auto;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.75),
+    0 18px 30px rgba(0,0,0,.35);
+}
+
+.invite-frame video {
+  width: 100%;
+  display: block;
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(18,7,11,.35),
+    rgba(18,7,11,.55)
+  );
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+#openBtn {
+  padding: 14px 30px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(
+    135deg,
+    rgba(212,175,55,.95),
+    rgba(245,230,170,.85)
+  );
+  color: #1a0e05;
+  font-size: 15px;
+  letter-spacing: .6px;
+  cursor: pointer;
+  box-shadow:
+    0 10px 30px rgba(212,175,55,.45),
+    inset 0 1px 0 rgba(255,255,255,.4);
+}
+
+.action-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+  background: linear-gradient(
+    to top,
+    rgba(18,7,11,.95),
+    rgba(18,7,11,.6),
+    transparent
+  );
+}
+
+.action-bar a {
+  flex: 1;
+  padding: 14px 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
