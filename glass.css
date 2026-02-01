@@ -87,3 +87,30 @@ html, body {
   text-decoration: none;
   font-size: 14px;
 }
+
+/* =========================
+   RIPPLE BASE
+   ========================= */
+
+.ripple {
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: rgba(255, 215, 140, 0.35);
+  transform: scale(0);
+  animation: ripple-anim 600ms ease-out;
+}
+
+@keyframes ripple-anim {
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
