@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>Invitation</title>
+
+<link rel="stylesheet" href="glass.css">
+</head>
+
+<body>
+
+<div class="invite-frame">
+
+  <!-- Overlay -->
+  <div id="overlay">
+    <button id="openBtn">Tap to Open ✨</button>
+  </div>
+
+  <!-- Video -->
+  <video id="video" playsinline muted preload="metadata"></video>
+
+</div>
+
+<div class="action-bar">
+  <a id="mapBtn" target="_blank">Open Map</a>
+  <a id="calendarBtn">Add to Calendar</a>
+  <button id="soundToggle">🔊</button>
+</div>
+
+<audio id="audio" preload="auto"></audio>
+
+<script src="invite.js"></script>
+</body>
+</html>
