@@ -140,11 +140,18 @@ html, body {
   box-shadow:
     0 30px 60px rgba(0,0,0,.6),
     inset 0 0 0 1px rgba(255,255,255,.06);
+
+  /* existing */
   transform: translateZ(0);
   transition:
     transform .45s cubic-bezier(.2,.8,.2,1),
     box-shadow .45s ease;
+
+  /* ADD THESE */
+  transform-style: preserve-3d;
+  will-change: transform;
 }
+
 
 .invite-card img {
   width: 100%;
