@@ -118,3 +118,77 @@ html, body {
   );
   font-size: 18px;
 }
+
+
+/* =========================
+   LANDING PAGE – PREMIUM
+   ========================= */
+
+.landing-wrapper {
+  max-width: 380px;
+  margin: 28px auto 80px;
+  padding: 0 14px;
+  display: grid;
+  gap: 28px;
+}
+
+.invite-card {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.6),
+    inset 0 0 0 1px rgba(255,255,255,.06);
+  transform: translateZ(0);
+  transition:
+    transform .45s cubic-bezier(.2,.8,.2,1),
+    box-shadow .45s ease;
+}
+
+.invite-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+  transition: transform .6s ease;
+}
+
+/* Glass label */
+.invite-label {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,.18),
+    rgba(255,255,255,.08)
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 18px;
+  letter-spacing: .6px;
+  text-align: center;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 10px 30px rgba(0,0,0,.35);
+}
+
+/* Touch / hover interaction */
+.invite-card:active,
+.invite-card:hover {
+  transform: scale(1.03);
+  box-shadow:
+    0 45px 90px rgba(0,0,0,.75),
+    0 0 0 1px rgba(212,175,55,.35);
+}
+
+.invite-card:active img,
+.invite-card:hover img {
+  transform: scale(1.08);
+}
+
