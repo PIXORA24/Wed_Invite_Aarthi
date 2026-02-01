@@ -1,10 +1,5 @@
-/* ======================================
-   RIPPLE EFFECT FOR BUTTONS / CARDS
-   ====================================== */
-
 document.addEventListener("click", function (e) {
   const target = e.target.closest(".ripple");
-
   if (!target) return;
 
   const rect = target.getBoundingClientRect();
@@ -17,12 +12,8 @@ document.addEventListener("click", function (e) {
   ripple.style.width = ripple.style.height = `${size}px`;
   ripple.style.left = `${x}px`;
   ripple.style.top = `${y}px`;
-
   ripple.className = "ripple-effect";
 
   target.appendChild(ripple);
-
-  setTimeout(() => {
-    ripple.remove();
-  }, 600);
+  setTimeout(() => ripple.remove(), 600);
 });
