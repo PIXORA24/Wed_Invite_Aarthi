@@ -257,3 +257,10 @@ html, body {
   }
 }
 
+/* Prevent accidental text selection on tap */
+.invite-card,
+#openBtn {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
