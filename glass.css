@@ -192,3 +192,61 @@ html, body {
   transform: scale(1.08);
 }
 
+/* =========================
+   MICRO SHIMMER – GLASS LABEL
+   ========================= */
+
+.invite-label::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,.35) 45%,
+    rgba(255,255,255,.55) 50%,
+    rgba(255,255,255,.35) 55%,
+    transparent 100%
+  );
+  transform: translateX(-120%);
+  animation: shimmerMove 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmerMove {
+  0%   { transform: translateX(-120%); }
+  40%  { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
+
+/* =========================
+   AMBIENT LIGHT OVERLAY
+   ========================= */
+
+.invite-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 80% at 20% 10%,
+    rgba(255,200,150,.18),
+    transparent 55%
+  );
+  mix-blend-mode: soft-light;
+  opacity: .6;
+  animation: ambientGlow 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes ambientGlow {
+  0% {
+    background-position: 0% 0%;
+    opacity: .45;
+  }
+  100% {
+    background-position: 100% 100%;
+    opacity: .75;
+  }
+}
+
