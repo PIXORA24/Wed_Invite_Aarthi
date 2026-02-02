@@ -82,7 +82,6 @@ function startInvite() {
 
   video.muted = false;
   video.play().catch(() => {});
-
   audio.play().catch(() => {});
 }
 
@@ -90,16 +89,14 @@ function startInvite() {
    PLATFORM BEHAVIOR
    ========================= */
 
-// iOS → REQUIRE USER TAP
+// iOS → require user tap
 if (isIOS) {
   openBtn.addEventListener("click", startInvite, { once: true });
 }
 
-// Android → AUTOPLAY
+// Android → autoplay
 else {
   overlay.style.display = "none";
-
-  // Small delay for media readiness
   setTimeout(startInvite, 300);
 }
 
