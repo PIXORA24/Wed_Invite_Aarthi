@@ -73,12 +73,12 @@ mapBtn.href = data.map;
 let soundOn = true;
 
 /* =========================
-   COUNTDOWN (AMBIENT HUD)
+   AMBIENT COUNTDOWN (BACKGROUND HUD)
    ========================= */
 
 const countdown = document.createElement("div");
-countdown.className = "countdown-hud";
-document.querySelector(".invite-frame").appendChild(countdown);
+countdown.className = "countdown-ambient";
+document.body.appendChild(countdown);
 
 const eventTime = new Date(data.startDate).getTime();
 
