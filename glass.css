@@ -1,5 +1,5 @@
 /* =========================
-   BASE RESET
+   ROOT + RESET
    ========================= */
 
 html {
@@ -11,14 +11,25 @@ body {
   padding: 0;
   min-height: 100vh;
   overscroll-behavior: none;
+  font-family: "Playfair Display", serif;
+  color: #fff;
+  text-align: center;
+}
+
+/* =========================
+   FIXED BACKGROUND LAYER
+   ========================= */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   background: radial-gradient(
     120% 60% at 50% 0%,
     rgba(120,60,70,.45),
     #12070b 65%
   );
-  font-family: "Playfair Display", serif;
-  color: #fff;
-  text-align: center;
 }
 
 /* =========================
@@ -133,7 +144,6 @@ body {
   box-shadow:
     0 30px 60px rgba(0,0,0,.6),
     inset 0 0 0 1px rgba(255,255,255,.06);
-  transform: translateZ(0);
   transform-style: preserve-3d;
   will-change: transform;
   transition:
@@ -143,8 +153,6 @@ body {
 
 .invite-card img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
   transform: scale(1.02);
   transition: transform .6s ease;
@@ -180,7 +188,6 @@ body {
     rgba(255,255,255,.08)
   );
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   font-size: 18px;
   letter-spacing: .6px;
   text-align: center;
