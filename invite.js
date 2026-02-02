@@ -57,15 +57,6 @@ const calendarBtn = document.getElementById("calendarBtn");
 const soundToggle = document.getElementById("soundToggle");
 
 /* =========================
-   INJECT COUNTDOWN PILL
-   ========================= */
-
-const countdown = document.createElement("div");
-countdown.className = "countdown-pill";
-countdown.innerHTML = `<span>Loading countdown…</span>`;
-document.querySelector(".invite-frame").appendChild(countdown);
-
-/* =========================
    SET CONTENT
    ========================= */
 
@@ -77,10 +68,23 @@ video.muted = true;
 video.playsInline = true;
 
 audio.src = data.audio;
-
 mapBtn.href = data.map;
 
 let soundOn = true;
+
+/* =========================
+   COUNTDOWN PANEL (BELOW VIDEO)
+   ========================= */
+
+const countdownWrap = document.createElement("div");
+countdownWrap.className = "countdown-wrap";
+
+const countdown = document.createElement("div");
+countdown.className = "countdown-clock";
+countdown.textContent = "--:--:--";
+
+countdownWrap.appendChild(countdown);
+document.querySelector(".invite-frame").after(countdownWrap);
 
 /* =========================
    COUNTDOWN LOGIC
@@ -89,12 +93,12 @@ let soundOn = true;
 const eventTime = new Date(data.startDate).getTime();
 
 function updateCountdown() {
-  const now = new Date().getTime();
+  const now = Date.now();
   const diff = eventTime - now;
 
   if (diff <= 0) {
-    countdown.style.display = "none";
-    clearInterval(countdownTimer);
+    countdownWrap.style.display = "none";
+    clearInterval(timer);
     return;
   }
 
@@ -104,14 +108,14 @@ function updateCountdown() {
   const s = Math.floor((diff / 1000) % 60);
 
   countdown.innerHTML = `
-    <strong>${d}</strong>d
-    <strong>${h}</strong>h
-    <strong>${m}</strong>m
-    <strong>${s}</strong>s
+    ${d > 0 ? `<span>${d}d</span>` : ""}
+    <span>${String(h).padStart(2, "0")}</span>:
+    <span>${String(m).padStart(2, "0")}</span>:
+    <span>${String(s).padStart(2, "0")}</span>
   `;
 }
 
-const countdownTimer = setInterval(updateCountdown, 1000);
+const timer = setInterval(updateCountdown, 1000);
 updateCountdown();
 
 /* =========================
@@ -122,16 +126,16 @@ calendarBtn.addEventListener("click", () => {
   const start = new Date(data.startDate);
   const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
 
-  const formatICS = (date) =>
-    date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+  const fmt = (d) =>
+    d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
 
   const ics = `
 BEGIN:VCALENDAR
 VERSION:2.0
 BEGIN:VEVENT
 SUMMARY:${data.calendarTitle}
-DTSTART:${formatICS(start)}
-DTEND:${formatICS(end)}
+DTSTART:${fmt(start)}
+DTEND:${fmt(end)}
 LOCATION:${data.map}
 DESCRIPTION:${data.title}
 END:VEVENT
@@ -140,13 +144,12 @@ END:VCALENDAR
 
   const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
   const url = URL.createObjectURL(blob);
-
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `${data.title}.ics`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${data.title}.ics`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 });
 
 /* =========================
