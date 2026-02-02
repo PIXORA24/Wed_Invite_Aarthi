@@ -1,3 +1,7 @@
+/* =========================
+   EVENT CONFIG
+   ========================= */
+
 const events = {
   wedding: {
     title: "Wedding",
@@ -5,7 +9,8 @@ const events = {
     audio: "assets/wedding/music.mp3",
     poster: "assets/wedding/bg.jpg",
     map: "https://maps.google.com",
-    calendar: "#"
+    calendarTitle: "Aarthi & Rohit Wedding",
+    startDate: "2026-02-14T10:30:00+05:30"
   },
   reception: {
     title: "Reception",
@@ -13,13 +18,22 @@ const events = {
     audio: "assets/reception/music.mp3",
     poster: "assets/reception/bg.jpg",
     map: "https://maps.google.com",
-    calendar: "#"
+    calendarTitle: "Aarthi & Rohit Reception",
+    startDate: "2026-02-15T19:00:00+05:30"
   }
 };
+
+/* =========================
+   PLATFORM DETECTION
+   ========================= */
 
 const isIOS =
   /iPad|iPhone|iPod/.test(navigator.userAgent) ||
   (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+/* =========================
+   PARAMS
+   ========================= */
 
 const params = new URLSearchParams(window.location.search);
 const eventKey = params.get("event");
@@ -30,6 +44,10 @@ if (!events[eventKey]) {
 
 const data = events[eventKey];
 
+/* =========================
+   ELEMENTS
+   ========================= */
+
 const video = document.getElementById("video");
 const audio = document.getElementById("audio");
 const overlay = document.getElementById("overlay");
@@ -37,6 +55,19 @@ const openBtn = document.getElementById("openBtn");
 const mapBtn = document.getElementById("mapBtn");
 const calendarBtn = document.getElementById("calendarBtn");
 const soundToggle = document.getElementById("soundToggle");
+
+/* =========================
+   INJECT COUNTDOWN PILL
+   ========================= */
+
+const countdown = document.createElement("div");
+countdown.className = "countdown-pill";
+countdown.innerHTML = `<span>Loading countdown…</span>`;
+document.querySelector(".invite-frame").appendChild(countdown);
+
+/* =========================
+   SET CONTENT
+   ========================= */
 
 openBtn.textContent = `Tap to Open ${data.title} ✨`;
 
@@ -48,9 +79,79 @@ video.playsInline = true;
 audio.src = data.audio;
 
 mapBtn.href = data.map;
-calendarBtn.href = data.calendar;
 
 let soundOn = true;
+
+/* =========================
+   COUNTDOWN LOGIC
+   ========================= */
+
+const eventTime = new Date(data.startDate).getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const diff = eventTime - now;
+
+  if (diff <= 0) {
+    countdown.style.display = "none";
+    clearInterval(countdownTimer);
+    return;
+  }
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  countdown.innerHTML = `
+    <strong>${d}</strong>d
+    <strong>${h}</strong>h
+    <strong>${m}</strong>m
+    <strong>${s}</strong>s
+  `;
+}
+
+const countdownTimer = setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* =========================
+   CALENDAR (.ics)
+   ========================= */
+
+calendarBtn.addEventListener("click", () => {
+  const start = new Date(data.startDate);
+  const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+
+  const formatICS = (date) =>
+    date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+
+  const ics = `
+BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:${data.calendarTitle}
+DTSTART:${formatICS(start)}
+DTEND:${formatICS(end)}
+LOCATION:${data.map}
+DESCRIPTION:${data.title}
+END:VEVENT
+END:VCALENDAR
+`;
+
+  const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${data.title}.ics`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});
+
+/* =========================
+   PLAY CONTROL
+   ========================= */
 
 function startInvite() {
   overlay.style.display = "none";
@@ -65,6 +166,10 @@ if (isIOS) {
   overlay.style.display = "none";
   setTimeout(startInvite, 300);
 }
+
+/* =========================
+   SOUND TOGGLE
+   ========================= */
 
 soundToggle.addEventListener("click", () => {
   soundOn = !soundOn;
