@@ -1,7 +1,3 @@
-/* =========================
-   EVENT CONFIG
-   ========================= */
-
 const events = {
   wedding: {
     title: "Wedding",
@@ -21,17 +17,9 @@ const events = {
   }
 };
 
-/* =========================
-   PLATFORM DETECTION
-   ========================= */
-
 const isIOS =
   /iPad|iPhone|iPod/.test(navigator.userAgent) ||
   (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-
-/* =========================
-   PARAMS
-   ========================= */
 
 const params = new URLSearchParams(window.location.search);
 const eventKey = params.get("event");
@@ -42,10 +30,6 @@ if (!events[eventKey]) {
 
 const data = events[eventKey];
 
-/* =========================
-   ELEMENTS
-   ========================= */
-
 const video = document.getElementById("video");
 const audio = document.getElementById("audio");
 const overlay = document.getElementById("overlay");
@@ -53,10 +37,6 @@ const openBtn = document.getElementById("openBtn");
 const mapBtn = document.getElementById("mapBtn");
 const calendarBtn = document.getElementById("calendarBtn");
 const soundToggle = document.getElementById("soundToggle");
-
-/* =========================
-   SET CONTENT
-   ========================= */
 
 openBtn.textContent = `Tap to Open ${data.title} ✨`;
 
@@ -66,43 +46,25 @@ video.muted = true;
 video.playsInline = true;
 
 audio.src = data.audio;
-audio.muted = false;
 
 mapBtn.href = data.map;
 calendarBtn.href = data.calendar;
 
 let soundOn = true;
 
-/* =========================
-   CORE PLAY FUNCTION
-   ========================= */
-
 function startInvite() {
   overlay.style.display = "none";
-
   video.muted = false;
   video.play().catch(() => {});
   audio.play().catch(() => {});
 }
 
-/* =========================
-   PLATFORM BEHAVIOR
-   ========================= */
-
-// iOS → require user tap
 if (isIOS) {
   openBtn.addEventListener("click", startInvite, { once: true });
-}
-
-// Android → autoplay
-else {
+} else {
   overlay.style.display = "none";
   setTimeout(startInvite, 300);
 }
-
-/* =========================
-   SOUND TOGGLE
-   ========================= */
 
 soundToggle.addEventListener("click", () => {
   soundOn = !soundOn;
