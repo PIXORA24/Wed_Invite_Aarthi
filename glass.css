@@ -330,6 +330,22 @@ body::before {
   50%  { opacity: 1; }
   100% { opacity: .85; }
 }
+/* =========================
+   COUNTDOWN – AMBIENT HUD
+   ========================= */
+
+.countdown-hud {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Orbitron", "JetBrains Mono", monospace;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,.75);
+  text-shadow: 0 2px 8px rgba(0,0,0,.6);
+  pointer-events: none;
+}
 
 
 .countdown-pill strong {
