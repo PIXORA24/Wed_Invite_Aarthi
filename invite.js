@@ -73,22 +73,12 @@ mapBtn.href = data.map;
 let soundOn = true;
 
 /* =========================
-   COUNTDOWN PANEL (BELOW VIDEO)
+   COUNTDOWN (AMBIENT HUD)
    ========================= */
-
-const countdownWrap = document.createElement("div");
-countdownWrap.className = "countdown-wrap";
 
 const countdown = document.createElement("div");
-countdown.className = "countdown-clock";
-countdown.textContent = "--:--:--";
-
-countdownWrap.appendChild(countdown);
-document.querySelector(".invite-frame").after(countdownWrap);
-
-/* =========================
-   COUNTDOWN LOGIC
-   ========================= */
+countdown.className = "countdown-hud";
+document.querySelector(".invite-frame").appendChild(countdown);
 
 const eventTime = new Date(data.startDate).getTime();
 
@@ -97,7 +87,7 @@ function updateCountdown() {
   const diff = eventTime - now;
 
   if (diff <= 0) {
-    countdownWrap.style.display = "none";
+    countdown.style.display = "none";
     clearInterval(timer);
     return;
   }
@@ -108,10 +98,10 @@ function updateCountdown() {
   const s = Math.floor((diff / 1000) % 60);
 
   countdown.innerHTML = `
-    ${d > 0 ? `<span>${d}d</span>` : ""}
-    <span>${String(h).padStart(2, "0")}</span>:
-    <span>${String(m).padStart(2, "0")}</span>:
-    <span>${String(s).padStart(2, "0")}</span>
+    ${d > 0 ? `${d}d&nbsp;` : ""}
+    ${String(h).padStart(2, "0")} :
+    ${String(m).padStart(2, "0")} :
+    ${String(s).padStart(2, "0")}
   `;
 }
 
@@ -126,7 +116,7 @@ calendarBtn.addEventListener("click", () => {
   const start = new Date(data.startDate);
   const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
 
-  const fmt = (d) =>
+  const fmt = d =>
     d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
 
   const ics = `
