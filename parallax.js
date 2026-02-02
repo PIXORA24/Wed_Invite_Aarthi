@@ -2,8 +2,8 @@ const cards = document.querySelectorAll(".invite-card");
 
 if (window.DeviceOrientationEvent) {
   window.addEventListener("deviceorientation", (e) => {
-    const x = e.gamma; // left-right
-    const y = e.beta;  // front-back
+    const x = e.gamma;
+    const y = e.beta;
 
     if (x === null || y === null) return;
 
